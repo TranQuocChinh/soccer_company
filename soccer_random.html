@@ -352,7 +352,7 @@
         })
         $(`#js-team1-${id}`).val(idRand);
         $(`#js-team2-${id}`).val(idRand === 1 ? 2 : 1);
-      }, 3000);
+      }, 2000);
       
     } else {
       // $('#js-btn-add').prop('disabled', false);
@@ -362,6 +362,8 @@
   function renderItems(data) {
     if (data.length > 0) {
       let html = data.map(function (item, k) {
+        console.log(item, 'item');
+       
         return renderLines(item, k)
       });
       $('#js-content-team').html(html.join(''));
@@ -405,7 +407,7 @@
               <div class="col-4 text-center">
                 <div class="row">
                   <div class="col-6">
-                    <button class="btn btn-sm btn-primary w-100 mt-1 btn-random-item" type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
+                    <button class="btn btn-sm btn-primary w-100 mt-1 ${item[0].team !== null || item[1].team !== null ? 'disabled' : ''} btn-random-item" type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
                       <span class="spinner-grow spinner-grow-sm" id="loading-${idx}" style="display: none" role="status" aria-hidden="true"></span>
                       Random
                     </button>
