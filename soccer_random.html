@@ -280,6 +280,7 @@
   }
 
   function randomItem(id) {
+    $('#result').hide();
     let idRand = randomIntFromInterval(1, 2);
     let name1 = $(`input[name=${id}-name1]`);
     let valName1 = $(`input[name=${id}-name1]`).val();
@@ -302,9 +303,11 @@
       $(`#btn-random-${id}`).prop('disabled', true);
       $(`#loading-${id}`).css('display', 'inline-block');
       $('#js-btn-add').prop('disabled', true);
+      $('#btn-submit').prop('disabled', true);
       setTimeout(() => {
         $(`#loading-${id}`).css('display', 'none');
         $('#js-btn-add').prop('disabled', false);
+        $('#btn-submit').prop('disabled', false);
         name1.prop('readonly', true);
         name2.prop('readonly', true);
         dataArr.map((item, idx) => {
