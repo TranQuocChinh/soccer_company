@@ -301,8 +301,10 @@
     if (!isvalid) {
       $(`#btn-random-${id}`).prop('disabled', true);
       $(`#loading-${id}`).css('display', 'inline-block');
+      $('#js-btn-add').prop('disabled', true);
       setTimeout(() => {
         $(`#loading-${id}`).css('display', 'none');
+        $('#js-btn-add').prop('disabled', false);
         name1.prop('readonly', true);
         name2.prop('readonly', true);
         dataArr.map((item, idx) => {
@@ -319,6 +321,7 @@
         })
         $(`#js-team1-${id}`).val(idRand);
         $(`#js-team2-${id}`).val(idRand === 1 ? 2 : 1);
+        
       }, 1500);
       
     } else {
@@ -356,7 +359,6 @@
   }
 
   const renderLines = (item, idx) => {
-    console.log(item, 'renderLines');
     return `
             <div class="row box-content mt-2" id="box-content-${idx}">
               <div class="col-4">
