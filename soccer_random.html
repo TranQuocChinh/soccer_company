@@ -97,10 +97,10 @@
     <div class="row">
       <div class="col-4 text-center">
         <div class="row">
-          <div class="col-8">
+          <div class="col-8 ">
             <h4>Name register</h4>
           </div>
-          <div class="col-4">
+          <div class="col-4 ">
             <h4>Team</h4>
           </div>
         </div>
@@ -151,7 +151,7 @@
             <div class="col-3">
               <h2>TEAM 1:</h2>
             </div>
-            <div class="col-9">
+            <div class="col-9 text-left">
               <h2 id="team-1"></h2>
             </div>
           </div>
@@ -159,7 +159,7 @@
             <div class="col-3">
               <h2>TEAM 2:</h2>
             </div>
-            <div class="col-9">
+            <div class="col-9 text-left">
               <h2 id="team-2"></h2>
             </div>
           </div>
@@ -266,38 +266,10 @@
   }
 
   function validateInput(valName1, valName2, name1, name2, data) {
+
     let compareStr = valName1.localeCompare(valName2);
 
-    if (valName1 === '' && valName2 === '') {
-      $(name1).addClass('is-invalid');
-      $(name2).addClass('is-invalid');
-      isvalid = true;
-    } else {
-      $(name1).removeClass('is-invalid');
-      $(name2).removeClass('is-invalid');
-      isvalid = false;
-    }
-
-    if (valName1 === '') {
-      $(name1).addClass('is-invalid');
-      isvalid = true;
-    } else {
-      $(name1).removeClass('is-invalid');
-      isvalid = false;
-    }
-
-    if (valName2 === '') {
-      $(name2).addClass('is-invalid');
-      isvalid = true;
-    } else {
-      $(name2).removeClass('is-invalid');
-      isvalid = false;
-    }
-    if (valName1 === '' || valName2 === '') {
-      isvalid = true
-    }
-
-    if (compareStr == 0) {
+    if ((valName1 === '' && valName2 === '') || compareStr == 0) {
       $(name1).addClass('is-invalid');
       $(name2).addClass('is-invalid');
       isvalid = true;
@@ -407,7 +379,7 @@
               <div class="col-4 text-center">
                 <div class="row">
                   <div class="col-6">
-                    <button class="btn btn-sm btn-primary w-100 mt-1 ${item[0].team !== null || item[1].team !== null ? 'disabled' : ''} btn-random-item" type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
+                    <button class="btn btn-sm btn-primary w-100 mt-1 btn-random-item" ${item[0].team !== null || item[1].team !== null ? 'disabled' : ''} type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
                       <span class="spinner-grow spinner-grow-sm" id="loading-${idx}" style="display: none" role="status" aria-hidden="true"></span>
                       Random
                     </button>
