@@ -149,7 +149,7 @@
           </div>
           <div class="row d-flex align-items-center">
             <div class="col-3">
-              <h2>TEAM 1:</h2>
+              <h2>Team 1 (<span id="qty-team-1"></span>):</h2>
             </div>
             <div class="col-9 text-left">
               <h2 id="team-1"></h2>
@@ -157,20 +157,19 @@
           </div>
           <div class="row d-flex align-items-center">
             <div class="col-3">
-              <h2>TEAM 2:</h2>
+              <h2>Team 2  (<span id="qty-team-2"></span>):</h2>
             </div>
             <div class="col-9 text-left">
               <h2 id="team-2"></h2>
             </div>
           </div>
         </div>
-        <div class="row mt-5">
-          <div class="col-4">
+        <div class="row mt-5 text-center">
+          <div class="col-6">
+            <button type="button" class="btn btn-lg btn-success w-50 mt-1" id="btn-submit">Submit</button>
           </div>
-          <div class="col-4">
-            <button type="button" class="btn btn-lg btn-success w-100 mt-1" id="btn-submit">Submit</button>
-          </div>
-          <div class="col-4">
+          <div class="col-6">
+            <button type="button" class="btn btn-lg btn-secondary w-50 mt-1" id="btn-reset">Reload</button>
           </div>
         </div>
       </div>
@@ -188,7 +187,6 @@
   var result1 = [];
   var result2 = [];
   var isvalid = false;
-
   var dataArr = [
     [{
         name: '',
@@ -242,7 +240,6 @@
     $('#result').hide();
 
     $('#js-btn-add').on('click', function () {
-      console.log(dataArr, 'js-btn-add');
       dataArr.push([{
           name: '',
           team: null
@@ -288,18 +285,16 @@
     let valName1 = $(`input[name=${id}-name1]`).val();
     let name2 = $(`input[name=${id}-name2]`);
     let valName2 = $(`input[name=${id}-name2]`).val();
-
-    console.log(dataArr, 'dataArr');
     let validate = validateInput(valName1, valName2, name1, name2, dataArr);
     dataArr.map((item, idx) => {
       if (id === idx) {
         dataArr[idx][0] = {
+          ...dataArr[idx][0],
           name: valName1,
-          // team: idRand
         }
         dataArr[idx][1] = {
+          ...dataArr[idx][1],
           name: valName2,
-          // team: idRand === 1 ? 2 : 1
         }
       }
     })
@@ -324,7 +319,7 @@
         })
         $(`#js-team1-${id}`).val(idRand);
         $(`#js-team2-${id}`).val(idRand === 1 ? 2 : 1);
-      }, 2000);
+      }, 1500);
       
     } else {
       // $('#js-btn-add').prop('disabled', false);
@@ -334,8 +329,6 @@
   function renderItems(data) {
     if (data.length > 0) {
       let html = data.map(function (item, k) {
-        console.log(item, 'item');
-       
         return renderLines(item, k)
       });
       $('#js-content-team').html(html.join(''));
@@ -363,6 +356,7 @@
   }
 
   const renderLines = (item, idx) => {
+    console.log(item, 'renderLines');
     return `
             <div class="row box-content mt-2" id="box-content-${idx}">
               <div class="col-4">
@@ -379,7 +373,7 @@
               <div class="col-4 text-center">
                 <div class="row">
                   <div class="col-6">
-                    <button class="btn btn-sm btn-primary w-100 mt-1 btn-random-item" ${item[0].team !== null || item[1].team !== null ? 'disabled' : ''} type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
+                    <button class="btn btn-sm btn-primary w-100 mt-1 btn-random-item" ${(item[0]?.team !== null && item[1]?.team !== null) ? 'disabled' : ''} type="button" id="btn-random-${idx}" onclick="randomItem(${idx})">
                       <span class="spinner-grow spinner-grow-sm" id="loading-${idx}" style="display: none" role="status" aria-hidden="true"></span>
                       Random
                     </button>
@@ -424,17 +418,24 @@
     showResult(arr);
   })
 
+  $('#btn-reset').on('click', function() {
+    location.reload();
+  })
+
   function showResult(data) {
     let arr1 = [];
     let arr2 = [];
     data.map((item, idx) => {
-      if (item[1].value == 1) {
+      if (item[1].value == 1 && item[0].value != '') {
         arr1.push(item[0].value)
       }
-      if (item[1].value == 2) {
+      if (item[1].value == 2 && item[0].value != '') {
         arr2.push(item[0].value)
       }
     })
+
+    $('#qty-team-1').html(arr1.length);
+    $('#qty-team-2').html(arr2.length);
     $('#team-1').html(arr1.join(" - "));
     $('#team-2').html(arr2.join(" - "));
   }
