@@ -313,12 +313,13 @@
       $(`#loading-${id}`).css('display', 'inline-block');
       $('#js-btn-add').prop('disabled', true);
       $('#btn-submit').prop('disabled', true);
+      name1.prop('readonly', true);
+      name2.prop('readonly', true);
       setTimeout(() => {
         $(`#loading-${id}`).css('display', 'none');
         $('#js-btn-add').prop('disabled', false);
         $('#btn-submit').prop('disabled', false);
-        name1.prop('readonly', true);
-        name2.prop('readonly', true);
+        
         dataArr.map((item, idx) => {
           if (id === idx) {
             dataArr[idx][0] = {
@@ -382,7 +383,7 @@
               <div class="col-4">
                 <div class="row">
                   <div class="col-8">
-                    <input type="text" class="form-control ${item[0].team == 1 ? "text-info" : item[0].team == 2 ? "text-danger" : ''}" name="${idx}-name1" value="${item[0].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name1')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control ${item[0].team == 1 ? "text-info" : item[0].team == 2 ? "text-danger" : ''}" ${item[0].name != '' ? 'readonly' : ''} name="${idx}-name1" value="${item[0].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name1')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
                   <div class="col-4  font-weight-bold">
                     <input type="text" class="form-control text-center ${item[0].team == 1 ? "text-info" : item[0].team == 2 ? "text-danger" : ''}" readonly placeholder="Team" name="${idx}-team1" value="${item[0].team ?? '' }" id="js-team1-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
@@ -406,7 +407,7 @@
               <div class="col-4">
                 <div class="row">
                   <div class="col-8">
-                    <input type="text" class="form-control ${item[1].team == 1 ? "text-info" : item[1].team == 2 ? "text-danger" : ''}" name="${idx}-name2" value="${item[1].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name2')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control ${item[1].team == 1 ? "text-info" : item[1].team == 2 ? "text-danger" : ''}" ${item[1].name != '' ? 'readonly' : ''} name="${idx}-name2" value="${item[1].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name2')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
                   <div class="col-4">
                     <input type="text" class="form-control text-center font-weight-bold ${item[1].team == 1 ? "text-info" : item[1].team == 2 ? "text-danger" : ''}" readonly  placeholder="Team" name="${idx}-team2" value="${item[1].team ?? ''}" id="js-team2-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
