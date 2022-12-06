@@ -281,7 +281,7 @@
 
   function randomItem(id) {
     $('#result').hide();
-    let idRand = randomIntFromInterval(1, 2);
+    let idRand = randomNumber(1, 2);
     let name1 = $(`input[name=${id}-name1]`);
     let valName1 = $(`input[name=${id}-name1]`).val();
     let name2 = $(`input[name=${id}-name2]`);
@@ -341,24 +341,25 @@
     }
   }
   
-  const handleChange = (idx, name) => {
-  //   let name1 = $(`input[name=${id}-name1]`);
-  //   let valName1 = $(`input[name=${id}-name1]`).val();
-  //   let name2 = $(`input[name=${id}-name2]`);
-  //   let valName2 = $(`input[name=${id}-name2]`).val();
-  //   console.log(valName1, idx);
-  //   dataArr.map((item, idx) => {
-  //     if (id === idx) {
-  //       dataArr[idx][0] = {
-  //         ...dataArr[idx][0],
-  //         name: valName1,
-  //       }
-  //       dataArr[idx][1] = {
-  //         ...dataArr[idx][1],
-  //         name: valName2,
-  //       }
-  //     }
-  //   })
+  const handleChange = (id, name) => {
+    let name1 = $(`input[name=${id}-name1]`);
+    let valName1 = $(`input[name=${id}-name1]`).val();
+    let name2 = $(`input[name=${id}-name2]`);
+    let valName2 = $(`input[name=${id}-name2]`).val();
+    let _dataArr = [...dataArr]
+    _dataArr.map((item, idx) => {
+      if (id === idx) {
+        _dataArr[idx][0] = {
+          ..._dataArr[idx][0],
+          name: valName1,
+        }
+        _dataArr[idx][1] = {
+          ..._dataArr[idx][1],
+          name: valName2,
+        }
+      }
+    })
+    dataArr = _dataArr;
   }
 
   const renderLines = (item, idx) => {
@@ -403,7 +404,7 @@
   }
 
 
-  function randomIntFromInterval(min, max) {
+  function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
@@ -441,7 +442,7 @@
 
     $('#qty-team-1').html(arr1.length);
     $('#qty-team-2').html(arr2.length);
-    $('#team-1').html(arr1.join(" - "));
-    $('#team-2').html(arr2.join(" - "));
+    $('#team-1').html(arr1.sort().join(" - "));
+    $('#team-2').html(arr2.sort().join(" - "));
   }
 </script>
