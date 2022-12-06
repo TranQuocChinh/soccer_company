@@ -85,6 +85,15 @@
     -o-animation: my 700ms infinite;
     animation: my 700ms infinite;
   }
+  input{
+    font-weight: bold !important;
+  }
+  input::placeholder{
+    font-weight: normal !important;
+  }
+  h2{
+    font-style: italic;
+  }
 </style>
 
 <body>
@@ -147,20 +156,20 @@
             <div class="col-2"></div>
 
           </div>
-          <div class="row d-flex align-items-center">
-            <div class="col-3">
+          <div class="row d-flex align-items-center text-info">
+            <div class="col-3 ">
               <h2>Team 1 (<span id="qty-team-1"></span>):</h2>
             </div>
             <div class="col-9 text-left">
-              <h2 id="team-1"></h2>
+              <h2 id="team-1" class="font-italic"></h2>
             </div>
           </div>
-          <div class="row d-flex align-items-center">
-            <div class="col-3">
+          <div class="row d-flex align-items-center text-danger">
+            <div class="col-3 ">
               <h2>Team 2  (<span id="qty-team-2"></span>):</h2>
             </div>
             <div class="col-9 text-left">
-              <h2 id="team-2"></h2>
+              <h2 id="team-2" class="font-italic"></h2>
             </div>
           </div>
         </div>
@@ -323,7 +332,11 @@
           }
         })
         $(`#js-team1-${id}`).val(idRand);
+        $(`#js-team1-${id}`).addClass(idRand === 1 ? 'text-info' : idRand === 2 ? 'text-danger' : '');
+        $(`input[name=${id}-name1]`).addClass(idRand === 1 ? 'text-info' : idRand === 2 ? 'text-danger' : '');
         $(`#js-team2-${id}`).val(idRand === 1 ? 2 : 1);
+        $(`#js-team2-${id}`).addClass(idRand === 2 ? 'text-info' : idRand === 1 ? 'text-danger' : '');
+        $(`input[name=${id}-name2]`).addClass(idRand === 2 ? 'text-info' : idRand === 1 ? 'text-danger' : '');
         
       }, 1500);
       
@@ -363,15 +376,16 @@
   }
 
   const renderLines = (item, idx) => {
+    console.log(item);
     return `
             <div class="row box-content mt-2" id="box-content-${idx}">
               <div class="col-4">
                 <div class="row">
                   <div class="col-8">
-                    <input type="text" class="form-control" name="${idx}-name1" value="${item[0].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name1')" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control ${item[0].team == 1 ? "text-info" : item[0].team == 2 ? "text-danger" : ''}" name="${idx}-name1" value="${item[0].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name1')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
-                  <div class="col-4">
-                    <input type="text" class="form-control" readonly name="${idx}-team1" value="${item[0].team ?? '' }" id="js-team1-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
+                  <div class="col-4  font-weight-bold">
+                    <input type="text" class="form-control text-center ${item[0].team == 1 ? "text-info" : item[0].team == 2 ? "text-danger" : ''}" readonly placeholder="Team" name="${idx}-team1" value="${item[0].team ?? '' }" id="js-team1-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
                 </div>
                 
@@ -392,10 +406,10 @@
               <div class="col-4">
                 <div class="row">
                   <div class="col-8">
-                    <input type="text" class="form-control" name="${idx}-name2" value="${item[1].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name2')" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control ${item[1].team == 1 ? "text-info" : item[1].team == 2 ? "text-danger" : ''}" name="${idx}-name2" value="${item[1].name}" data-id="${idx}" onkeyup="handleChange(${idx}, '${idx}-name2')" placeholder="Player name" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
                   <div class="col-4">
-                    <input type="text" class="form-control" readonly  name="${idx}-team2" value="${item[1].team ?? ''}" id="js-team2-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control text-center font-weight-bold ${item[1].team == 1 ? "text-info" : item[1].team == 2 ? "text-danger" : ''}" readonly  placeholder="Team" name="${idx}-team2" value="${item[1].team ?? ''}" id="js-team2-${idx}" data-id="${idx}" aria-label="Name" aria-describedby="basic-addon1">
                   </div>
                 </div>
               </div>
